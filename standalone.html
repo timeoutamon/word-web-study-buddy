@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Wide Web - Language Learning</title>
+  <style>
+    /* Basic Styling */
+    body {
+      font-family: monospace;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+    
+    .min-h-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .border-dashed-black {
+      border-bottom: 2px dashed black;
+    }
+    
+    .language-btn {
+      background-color: black;
+      color: white;
+      border: 2px solid black;
+      padding: 8px 20px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      flex: 1;
+      margin: 0 4px;
+      transition: all 0.3s;
+    }
+    
+    .language-btn:hover {
+      background-color: white;
+      color: black;
+    }
+    
+    .lesson-btn {
+      background-color: black;
+      color: white;
+      border: 2px solid black;
+      padding: 4px 12px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      flex: 1;
+      margin: 0 4px;
+      transition: all 0.3s;
+    }
+    
+    .lesson-btn:hover {
+      background-color: white;
+      color: black;
+    }
+    
+    /* Top Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: black;
+      color: white;
+      padding: 12px 20px;
+      border-bottom: 3px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+    }
+    
+    .home-icon {
+      position: absolute;
+      left: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Main Content */
+    .content {
+      flex: 1;
+      padding-top: 64px;
+    }
+    
+    .header {
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header-title {
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: -1px;
+    }
+    
+    .section {
+      padding: 40px;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: black;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .footer a {
+      color: white;
+      margin: 0 8px;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    
+    /* Layout helpers */
+    .flex {
+      display: flex;
+    }
+    
+    .flex-col {
+      flex-direction: column;
+    }
+    
+    .justify-center {
+      justify-content: center;
+    }
+    
+    .justify-between {
+      justify-content: space-between;
+    }
+    
+    .items-center {
+      align-items: center;
+    }
+    
+    .gap-5 {
+      gap: 20px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+    
+    .mb-5 {
+      margin-bottom: 20px;
+    }
+    
+    .mb-8 {
+      margin-bottom: 32px;
+    }
+    
+    .mt-8 {
+      margin-top: 32px;
+    }
+    
+    .w-full {
+      width: 100%;
+    }
+    
+    .max-w-4xl {
+      max-width: 64rem;
+    }
+    
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .text-3xl {
+      font-size: 30px;
+    }
+    
+    .text-2xl {
+      font-size: 24px;
+    }
+    
+    .text-4xl {
+      font-size: 36px;
+    }
+    
+    .font-bold {
+      font-weight: bold;
+    }
+    
+    .underline {
+      text-decoration: underline;
+    }
+    
+    .border-b {
+      border-bottom: 1px solid black;
+    }
+    
+    .border-dashed {
+      border-style: dashed;
+    }
+    
+    .pb-4 {
+      padding-bottom: 16px;
+    }
+    
+    .p-5 {
+      padding: 20px;
+    }
+    
+    .p-10 {
+      padding: 40px;
+    }
+    
+    /* Flashcard and Notepad */
+    .flashcard {
+      width: 100%;
+      max-width: 400px;
+      height: 256px;
+      border: 3px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .card-number {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 16px;
+    }
+    
+    .color-picker {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .color-option {
+      width: 24px;
+      height: 24px;
+      border: 2px solid black;
+      cursor: pointer;
+    }
+    
+    .color-option.active {
+      box-shadow: 0 0 0 2px #666;
+      border-color: #999;
+    }
+    
+    .notepad {
+      width: 100%;
+      height: 288px;
+      border: 2px solid black;
+      padding: 12px;
+      font-family: monospace;
+      resize: none;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      .md\:flex-row {
+        flex-direction: row;
+      }
+      
+      .md\:w-7\/12 {
+        width: 58.333333%;
+      }
+      
+      .md\:w-5\/12 {
+        width: 41.666667%;
+      }
+      
+      .md\:mb-0 {
+        margin-bottom: 0;
+      }
+      
+      .md\:border-l-3 {
+        border-left-width: 3px;
+      }
+      
+      .md\:border-l-dashed {
+        border-left-style: dashed;
+      }
+      
+      .md\:border-black {
+        border-color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen" id="app">
+    <!-- Top Navigation -->
+    <div class="top-nav">
+      <div class="home-icon" onclick="showPage('main')">🕸️</div>
+      <div class="nav-links">
+        <a href="#about" onclick="showPage('about')">About Us</a>
+        <a href="#how" onclick="showPage('how')">How It Works</a>
+        <a href="#contact" onclick="showPage('contact')">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content" id="content">
+      <!-- Main Page (default) -->
+      <div id="main-page">
+        <header class="header border-dashed-black">
+          <div class="header-title">WORD WIDE WEB</div>
+        </header>
+        
+        <section class="section p-10 border-dashed-black">
+          <h2 class="text-3xl mb-5 underline">For Studious Language Learners</h2>
+          <p>Grab a pen and notebook. Seriously---you'll need it</p>
+        </section>
+        
+        <section class="section p-10 border-dashed-black">
+          <h2 class="text-2xl mb-5">Old Fashioned Methods With a Modern Approach</h2>
+          <p>We use etymology, memory tools, and word frequency to connect new words with words you already know. Once you finish your free course we hope you'll be able to see the Word Wide Web.</p>
+        </section>
+        
+        <section class="section p-10 border-dashed-black">
+          <div class="text-center mb-3 font-bold text-lg">Click a language to get started</div>
+          <div class="flex justify-between mt-3">
+            <a href="#" class="language-btn" onclick="showLanguage('nl')">NL</a>
+            <a href="#" class="language-btn" onclick="showLanguage('it')">IT</a>
+            <a href="#" class="language-btn" onclick="showLanguage('sp')">SP</a>
+            <a href="#" class="language-btn" onclick="showLanguage('de')">DE</a>
+          </div>
+        </section>
+      </div>
+      
+      <!-- About Page -->
+      <div id="about-page" class="hidden">
+        <header class="header border-dashed-black">
+          <div class="header-title">ABOUT WWW</div>
+        </header>
+        
+        <section class="section p-10">
+          <p class="mb-4">Hi. I'm Kevan, a wannabe polyglot speaking English, Dutch, ASL, Italian & Albanian at different levels. I made this site to help language learners like myself.</p>
+          <p class="mb-4">I realized nothing can replace the old-fashioned methods of using pen & paper to learn a language. The gamification of language learning helps, but etymology-based memory tools aren't being used much these days. This site cannot replace interacting with a native, and alone with this site, you will not become fluent. But if you are studious, I predict it will give you a head start.</p>
+          <p class="mb-4">I'm creating a website that I wish I would have had when I first learned my second language at age 18. The site is designed to be minimalistic. We don't need bright colors or engaging visuals to learn a language or engaging visuals. All you need is your laptop/mobile device, a dedicated notebook, and a writing utensil. Good luck on your language learning adventure!</p>
+          <p class="mb-8">I'm not a web developer. I'm a copywriter. But I tried my best to make this. Be kind with your feedback.</p>
+          
+          <div class="flex justify-center gap-5">
+            <a href="#" onclick="showPage('main')" class="language-btn">Home Page</a>
+            <a href="https://paypal.me/YOURUSERNAME" target="_blank" class="language-btn">Buy Me a Coffee</a>
+          </div>
+        </section>
+      </div>
+      
+      <!-- How It Works Page -->
+      <div id="how-page" class="hidden">
+        <header class="header border-dashed-black">
+          <div class="header-title">HOW IT WORKS</div>
+        </header>
+        
+        <section class="section p-10">
+          <p class="mb-4">Paper & pen to start.</p>
+          <p class="mb-4">Select the language you want to learn and pick the lesson you want to complete. We suggest starting from one and working your way up to the final lesson. Keep track of your progress in your notebook. You can learn new vocabulary, practice reading, learn grammar, practice typing, and be tested on the words you've learned for each section. Each section has 50 words that you'll be working with.</p>
+          <p class="mb-4">This is designed for beginners who want to get to an intermediate level in the provided languages; from there, you'll be able to learn on your own. This is a study tool. It will take effort on your part. And it's that effort that will help you progress further. Learning languages isn't easy. It's work.</p>
+          <p class="mb-8">Using this etymology-based approach, we hope that you can speed up your learning journey. All you have to be is studious.</p>
+          
+          <div class="flex justify-center gap-5">
+            <a href="#" onclick="showPage('main')" class="language-btn">Home Page</a>
+            <a href="https://paypal.me/YOURUSERNAME" target="_blank" class="language-btn">Buy Me a Coffee</a>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Contact Page -->
+      <div id="contact-page" class="hidden">
+        <header class="header border-dashed-black">
+          <div class="header-title">CONTACT US</div>
+        </header>
+        
+        <section class="section p-10">
+          <div class="text-5xl text-center my-10 cursor-pointer" onclick="window.location.href = 'mailto:kevan@gmail.com'">
+            ✉️
+          </div>
+          <p class="text-center mb-8">Click the email icon above to contact us</p>
+          
+          <div class="flex justify-center gap-5">
+            <a href="#" onclick="showPage('main')" class="language-btn">Home Page</a>
+            <a href="https://paypal.me/YOURUSERNAME" target="_blank" class="language-btn">Buy Me a Coffee</a>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Language Pages -->
+      <div id="language-nl" class="hidden language-page">
+        <!-- Dutch Language Page Content -->
+      </div>
+      
+      <div id="language-it" class="hidden language-page">
+        <!-- Italian Language Page Content -->
+      </div>
+      
+      <div id="language-sp" class="hidden language-page">
+        <!-- Spanish Language Page Content -->
+      </div>
+      
+      <div id="language-de" class="hidden language-page">
+        <!-- German Language Page Content -->
+      </div>
+      
+      <!-- Vocabulary Pages will be dynamically generated -->
+      <div id="vocabulary-page" class="hidden">
+        <header class="header border-dashed-black">
+          <div class="header-title" id="vocab-header">VOCABULARY LESSON</div>
+        </header>
+        
+        <div class="flex flex-col md:flex-row min-h-[60vh] p-5">
+          <!-- Flashcard container -->
+          <div class="w-full md:w-7/12 flex flex-col items-center justify-center mb-8 md:mb-0">
+            <div class="flashcard">
+              <div class="card-number">Card 1/50</div>
+              <div id="flashcard-content">Vocabulary content will appear here</div>
+            </div>
+            
+            <button class="language-btn" onclick="toggleShuffle()">
+              🔀 Shuffle
+            </button>
+          </div>
+          
+          <!-- Notepad container -->
+          <div class="w-full md:w-5/12 p-5 md:border-l-3 md:border-l-dashed md:border-black">
+            <h3 class="mb-2">Your Notes</h3>
+            <div class="color-picker">
+              <div class="color-option active" style="background-color: black;" onclick="changeTextColor('black')"></div>
+              <div class="color-option" style="background-color: red;" onclick="changeTextColor('red')"></div>
+              <div class="color-option" style="background-color: blue;" onclick="changeTextColor('blue')"></div>
+            </div>
+            
+            <textarea 
+              class="notepad"
+              id="notes"
+              style="color: black;"
+            >Every time you see a new word, write it out 10 times in the target language and vocalize the word as you say it. Once you're comfortable with these words move on to the grammar tab from the previous page. If you need to temporarily take notes online, type them here.</textarea>
+            <p class="text-sm mt-2">Notes are temporary and will be lost when you leave this page</p>
+          </div>
+        </div>
+        
+        <div class="flex justify-center gap-5 p-5">
+          <a href="#" id="back-to-lessons" class="language-btn">
+            Back to Lessons
+          </a>
+          <a href="https://paypal.me/YOURUSERNAME" target="_blank" class="language-btn">
+            Buy Me a Coffee
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Connect with us:</p>
+      <div class="my-2">
+        <a href="https://www.instagram.com/whereskevan/" target="_blank">IG</a> | 
+        <a href="https://www.linkedin.com/in/kevan-hudson-467735bb/" target="_blank">LinkedIn</a> | 
+        <a href="https://x.com/whereskevan" target="_blank">Twitter</a>
+      </div>
+      <p>© 2025 WORD WIDE WEB Inc. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Language data
+    const LANGUAGES = {
+      nl: {
+        code: 'nl',
+        name: 'Dutch',
+        fullName: 'Dutch'
+      },
+      it: {
+        code: 'it',
+        name: 'Italian',
+        fullName: 'Italian'
+      },
+      sp: {
+        code: 'sp',
+        name: 'Spanish',
+        fullName: 'Spanish'
+      },
+      de: {
+        code: 'de',
+        name: 'German',
+        fullName: 'German'
+      }
+    };
+    
+    const LESSONS_PER_LANGUAGE = 50;
+    
+    // Current state
+    let currentPage = 'main';
+    let currentLanguage = '';
+    let currentLesson = 1;
+    let noteColor = 'black';
+    let isShuffleActive = false;
+    
+    // Initialize page based on URL hash
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        if (hash.startsWith('vocab-')) {
+          const parts = hash.split('-');
+          if (parts.length === 3) {
+            const language = parts[1];
+            const lesson = parseInt(parts[2]);
+            showVocabPage(language, lesson);
+          } else {
+            showPage(hash);
+          }
+        } else {
+          showPage(hash);
+        }
+      }
+    });
+    
+    // Function to show different pages
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.content > div').forEach(page => {
+        page.classList.add('hidden');
+      });
+      
+      // Show the requested page
+      const pageToShow = document.getElementById(`${pageId}-page`);
+      if (pageToShow) {
+        pageToShow.classList.remove('hidden');
+        currentPage = pageId;
+        window.location.hash = pageId;
+        window.scrollTo(0, 0);
+      } else {
+        // Default to main page if requested page doesn't exist
+        document.getElementById('main-page').classList.remove('hidden');
+        currentPage = 'main';
+        window.location.hash = 'main';
+      }
+    }
+    
+    // Function to show language page
+    function showLanguage(language) {
+      currentLanguage = language;
+      
+      // Generate language page with lessons if it doesn't exist
+      const languagePage = document.getElementById(`language-${language}`);
+      
+      if (languagePage.children.length === 0) {
+        // Generate the language page content
+        const languageInfo = LANGUAGES[language];
+        
+        languagePage.innerHTML = `
+          <header class="header border-dashed-black">
+            <div class="header-title">WORD WIDE WEB</div>
+          </header>
+          
+          <section class="section p-10">
+            <h1 class="text-3xl text-center mb-2">Learn ${languageInfo.name}</h1>
+            <p class="text-center mb-8 text-lg">Remember to track your own progress</p>
+            
+            <h2 class="text-2xl text-center mb-5 underline">Lessons</h2>
+            
+            <div class="w-full max-w-4xl mx-auto" id="lessons-container-${language}">
+              <!-- Lesson items will be added here -->
+            </div>
+            
+            <div class="flex justify-center gap-5 mt-8">
+              <a href="#" onclick="showPage('main')" class="language-btn">Home Page</a>
+              <a href="https://paypal.me/YOURUSERNAME" target="_blank" class="language-btn">Buy Me a Coffee</a>
+            </div>
+          </section>
+        `;
+        
+        // Generate lessons list
+        const lessonsContainer = document.getElementById(`lessons-container-${language}`);
+        for (let i = 1; i <= LESSONS_PER_LANGUAGE; i++) {
+          const lessonItem = document.createElement('div');
+          lessonItem.className = 'flex items-center mb-4 pb-4 border-b border-dashed border-black';
+          lessonItem.innerHTML = `
+            <div class="text-2xl font-bold w-12">${i}</div>
+            <div class="flex flex-grow justify-between">
+              <a 
+                href="#vocab-${language}-${i}" 
+                class="lesson-btn"
+                onclick="event.preventDefault(); showVocabPage('${language}', ${i});"
+              >
+                Vocabulary
+              </a>
+              <a 
+                href="#" 
+                class="lesson-btn"
+                onclick="event.preventDefault(); alert('Grammar for lesson ${i} in ${languageInfo.name} would open here');"
+              >
+                Grammar
+              </a>
+              <a 
+                href="#" 
+                class="lesson-btn"
+                onclick="event.preventDefault(); alert('Reading for lesson ${i} in ${languageInfo.name} would open here');"
+              >
+                Reading
+              </a>
+              <a 
+                href="#" 
+                class="lesson-btn"
+                onclick="event.preventDefault(); alert('Writing for lesson ${i} in ${languageInfo.name} would open here');"
+              >
+                Writing
+              </a>
+              <a 
+                href="#" 
+                class="lesson-btn"
+                onclick="event.preventDefault(); alert('Test for lesson ${i} in ${languageInfo.name} would open here');"
+              >
+                Test
+              </a>
+            </div>
+          `;
+          lessonsContainer.appendChild(lessonItem);
+        }
+      }
+      
+      // Hide all pages
+      document.querySelectorAll('.content > div').forEach(page => {
+        page.classList.add('hidden');
+      });
+      
+      // Show language page
+      languagePage.classList.remove('hidden');
+      window.location.hash = language;
+      window.scrollTo(0, 0);
+    }
+    
+    // Function to show vocabulary page
+    function showVocabPage(language, lesson) {
+      currentLanguage = language;
+      currentLesson = lesson;
+      
+      const languageInfo = LANGUAGES[language];
+      
+      // Update vocabulary page with language and lesson info
+      document.getElementById('vocab-header').textContent = 
+        `${languageInfo.name.toUpperCase()} VOCABULARY - LESSON ${lesson}`;
+      
+      document.getElementById('flashcard-content').textContent = 
+        `${languageInfo.name} vocabulary content for lesson ${lesson}`;
+      
+      // Update back button to return to the correct language page
+      document.getElementById('back-to-lessons').onclick = function() {
+        showLanguage(language);
+      };
+      
+      // Hide all pages
+      document.querySelectorAll('.content > div').forEach(page => {
+        page.classList.add('hidden');
+      });
+      
+      // Show vocabulary page
+      document.getElementById('vocabulary-page').classList.remove('hidden');
+      window.location.hash = `vocab-${language}-${lesson}`;
+      window.scrollTo(0, 0);
+    }
+    
+    // Function to change text color in notepad
+    function changeTextColor(color) {
+      noteColor = color;
+      document.getElementById('notes').style.color = color;
+      
+      // Update active state for color options
+      document.querySelectorAll('.color-option').forEach(option => {
+        option.classList.remove('active');
+      });
+      
+      document.querySelector(`.color-option[style*="background-color: ${color}"]`).classList.add('active');
+    }
+    
+    // Function to toggle shuffle
+    function toggleShuffle() {
+      isShuffleActive = !isShuffleActive;
+      alert('Shuffle functionality would be implemented here');
+      
+      // Update button appearance
+      const shuffleButton = document.querySelector('button.language-btn');
+      if (isShuffleActive) {
+        shuffleButton.style.backgroundColor = 'black';
+        shuffleButton.style.color = 'white';
+      } else {
+        shuffleButton.style.backgroundColor = 'white';
+        shuffleButton.style.color = 'black';
+      }
+    }
+  </script>
+</body>
+</html>
