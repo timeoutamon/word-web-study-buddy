@@ -32,7 +32,8 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
     const baseVocabulary = VOCABULARY_SECTIONS[lesson as keyof typeof VOCABULARY_SECTIONS] || [];
     
     // Get translations for this language and lesson
-    const translations = TRANSLATIONS[lang as keyof typeof TRANSLATIONS]?.[lesson as keyof typeof TRANSLATIONS[typeof lang]] || {};
+    // Fix TypeScript error by adding type assertions
+    const translations = (TRANSLATIONS as any)[lang]?.[lesson] || {};
     
     // Create the vocabulary cards with translations
     return baseVocabulary.map(item => {

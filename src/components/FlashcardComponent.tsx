@@ -29,10 +29,12 @@ const FlashcardComponent: React.FC<FlashcardProps> = ({ language, lessonNumber, 
     const baseVocabulary = VOCABULARY_SECTIONS[lesson as keyof typeof VOCABULARY_SECTIONS] || [];
     
     // Get translations for this language and lesson
-    const translations = TRANSLATIONS[lang as keyof typeof TRANSLATIONS]?.[lesson as keyof typeof TRANSLATIONS[typeof lang]] || {};
+    // Fix TypeScript error by adding type assertions
+    const translations = (TRANSLATIONS as any)[lang]?.[lesson] || {};
     
     // Get etymology data for this language and lesson
-    const etymologyData = ETYMOLOGY[lang as keyof typeof ETYMOLOGY]?.[lesson as keyof typeof ETYMOLOGY[typeof lang]] || {};
+    // Fix TypeScript error by adding type assertions
+    const etymologyData = (ETYMOLOGY as any)[lang]?.[lesson] || {};
     
     // Create the vocabulary cards with translations and etymology
     return baseVocabulary.map(item => {
