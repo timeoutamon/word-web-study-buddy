@@ -185,7 +185,7 @@ const Index = () => {
           <a href="https://www.linkedin.com/in/kevan-hudson-467735bb/" target="_blank" className="text-white mx-2 no-underline text-lg">LinkedIn</a> | 
           <a href="https://x.com/whereskevan" target="_blank" className="text-white mx-2 no-underline text-lg">Twitter</a>
         </div>
-        <p>© 2025 WORD WIDE WEB Inc. All rights reserved.</p>
+        <p>© 2025 WORD WIDE WEB. All rights reserved.</p>
       </footer>
     </div>
   );
