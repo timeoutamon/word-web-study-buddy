@@ -4,7 +4,6 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/word-web-study-buddy/", // <-- Add this line
   server: {
     host: "::",
     port: 8080,
