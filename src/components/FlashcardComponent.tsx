@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { LANGUAGES, VOCABULARY_SECTIONS, TRANSLATIONS, ETYMOLOGY } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
 
 interface FlashcardProps {
   language: string;
@@ -153,11 +154,11 @@ const FlashcardComponent: React.FC<FlashcardProps> = ({ language, lessonNumber, 
         </div>
       </div>
 
-      {/* Back to Lesson button */}
+      {/* Back to Lesson button - Updated for better visibility */}
       <div className="flex justify-center mt-8">
         <button 
           onClick={() => showPage(language)} 
-          className="language-btn bg-white py-3 px-6 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl"
+          className="bg-black text-white py-3 px-6 border-2 border-black rounded-lg shadow-md hover:bg-white hover:text-black transition-colors font-bold text-xl"
         >
           Back to Lessons
         </button>

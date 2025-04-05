@@ -6,11 +6,16 @@
 .language-btn {
   transition: all 0.2s ease;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+  background: black;
+  color: white;
+  border: 2px solid black;
 }
 
 .language-btn:hover {
   transform: translateY(-2px);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+  background: white;
+  color: black;
 }
 
 .language-btn:active {
@@ -51,8 +56,8 @@ body {
 .nav-button {
   transition: all 0.2s ease;
   border: 2px solid #000;
-  background: white;
-  color: black;
+  background: black;
+  color: white;
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -62,6 +67,8 @@ body {
 .nav-button:hover {
   transform: translateY(-2px);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+  background: white;
+  color: black;
 }
 
 .nav-button:active {
