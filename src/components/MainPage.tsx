@@ -35,24 +35,28 @@ const MainPage: React.FC<MainPageProps> = ({ showPage }) => {
           <button 
             className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
             onClick={() => showPage('nl')}
+            style={{ opacity: 1 }} /* Ensure visibility without hover */
           >
             Dutch (NL)
           </button>
           <button 
             className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
             onClick={() => showPage('it')}
+            style={{ opacity: 1 }} /* Ensure visibility without hover */
           >
             Italian (IT)
           </button>
           <button 
             className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
             onClick={() => showPage('sp')}
+            style={{ opacity: 1 }} /* Ensure visibility without hover */
           >
             Spanish (SP)
           </button>
           <button 
             className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
             onClick={() => showPage('de')}
+            style={{ opacity: 1 }} /* Ensure visibility without hover */
           >
             German (DE)
           </button>
@@ -63,11 +67,12 @@ const MainPage: React.FC<MainPageProps> = ({ showPage }) => {
       <section className="p-8 border-b border-dashed border-black bg-white">
         <h2 className="text-2xl mb-5 font-semibold">How Our Method Works</h2>
         <ul className="list-disc pl-6 space-y-3">
+          <li className="text-lg"><strong>Paper & pen are essential</strong> - write everything down to commit it to memory</li>
           <li className="text-lg">Learn high-frequency words first with our carefully curated vocabulary lists</li>
           <li className="text-lg">Understand word connections through etymology and memory aids</li>
           <li className="text-lg">Practice with structured grammar lessons and immersive reading</li>
-          <li className="text-lg">Test your knowledge with interactive exercises</li>
-          <li className="text-lg">Progress through 50 carefully structured lessons to reach B2 proficiency</li>
+          <li className="text-lg">Test your knowledge with interactive exercises, but <strong>always write answers in your notebook</strong></li>
+          <li className="text-lg">Progress through 50 carefully structured lessons with <strong>50 unique words per lesson</strong> to reach B2 proficiency</li>
         </ul>
       </section>
     </div>

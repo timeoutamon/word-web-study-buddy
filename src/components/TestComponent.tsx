@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { LANGUAGES } from "@/lib/constants";
+import { LANGUAGES, VOCABULARY_SECTIONS, TRANSLATIONS } from "@/lib/constants";
 
 interface TestComponentProps {
   language: string;
@@ -19,8 +19,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
   const languageName = LANGUAGES[language as keyof typeof LANGUAGES]?.name || language;
 
   useEffect(() => {
-    // This would normally fetch from a database or API
-    // For now we'll use dummy data for demonstration
+    // Get vocabulary data for this lesson
     const vocabularyData = getVocabularyForLesson(language, lessonNumber);
     setCards(vocabularyData);
     setOriginalCards(vocabularyData);
@@ -28,47 +27,21 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
     setShowAnswer(false);
   }, [language, lessonNumber]);
   
-  // Same vocabulary getter function as in FlashcardComponent
   const getVocabularyForLesson = (lang: string, lesson: number) => {
-    // This is where you would implement your actual vocabulary data
-    // Using the wordlist sections you provided
-    const dummyVocabulary = getDummyVocabularyForLanguage(lang, lesson);
-    return dummyVocabulary;
-  };
-  
-  const getDummyVocabularyForLanguage = (lang: string, lesson: number) => {
-    // For demonstration purposes - this would be replaced with actual vocabulary
-    const section1Vocabulary = [
-      {
-        english: "the",
-        translation: lang === "nl" ? "de/het" : lang === "de" ? "der/die/das" : lang === "it" ? "il/la/lo" : "el/la",
-        type: "article"
-      },
-      {
-        english: "be",
-        translation: lang === "nl" ? "zijn" : lang === "de" ? "sein" : lang === "it" ? "essere" : "ser/estar",
-        type: "verb"
-      },
-      {
-        english: "to",
-        translation: lang === "nl" ? "naar/om te" : lang === "de" ? "zu/nach" : lang === "it" ? "a/per" : "a/para",
-        type: "preposition"
-      },
-      {
-        english: "of",
-        translation: lang === "nl" ? "van" : lang === "de" ? "von" : lang === "it" ? "di" : "de",
-        type: "preposition"
-      },
-      {
-        english: "and",
-        translation: lang === "nl" ? "en" : lang === "de" ? "und" : lang === "it" ? "e" : "y/e",
-        type: "conjunction"
-      }
-    ];
+    // Get the base vocabulary for this lesson
+    const baseVocabulary = VOCABULARY_SECTIONS[lesson as keyof typeof VOCABULARY_SECTIONS] || [];
     
-    // This would be replaced with actual data from your 50 sets of vocabulary
-    // For now returning simplified data for demonstration
-    return section1Vocabulary;
+    // Get translations for this language and lesson
+    const translations = TRANSLATIONS[lang as keyof typeof TRANSLATIONS]?.[lesson as keyof typeof TRANSLATIONS[typeof lang]] || {};
+    
+    // Create the vocabulary cards with translations
+    return baseVocabulary.map(item => {
+      return {
+        english: item.english,
+        translation: translations[item.english] || `[${item.english} in ${lang}]`,
+        type: item.type
+      };
+    });
   };
 
   const toggleAnswer = () => {
@@ -109,6 +82,63 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
   }
 
   const currentCard = cards[currentCardIndex];
+  
+  // Get example sentences for the current word
+  const getExampleSentences = (word: string, type: string) => {
+    // This is a placeholder - in a real implementation you would have a database of example sentences
+    const basicExamples = {
+      "verb": [
+        `I will ${word} tomorrow.`,
+        `She doesn't ${word} very often.`,
+        `They ${word} every day.`
+      ],
+      "noun": [
+        `The ${word} is very important.`,
+        `I don't have a ${word}.`,
+        `There are many ${word}s in the room.`
+      ],
+      "adjective": [
+        `That's a very ${word} person.`,
+        `The ${word} book is on the table.`,
+        `I feel ${word} today.`
+      ],
+      "adverb": [
+        `She speaks ${word}.`,
+        `He ${word} finished the race.`,
+        `They ${word} understand the concept.`
+      ],
+      "preposition": [
+        `The book is ${word} the table.`,
+        `I'm going ${word} the store.`,
+        `She stood ${word} me.`
+      ],
+      "pronoun": [
+        `${word.charAt(0).toUpperCase() + word.slice(1)} is going to the party.`,
+        `I gave it to ${word}.`,
+        `${word.charAt(0).toUpperCase() + word.slice(1)} are my friends.`
+      ],
+      "conjunction": [
+        `I wanted to go, ${word} it was too late.`,
+        `Run fast ${word} you'll miss the bus.`,
+        `She likes tea ${word} coffee.`
+      ],
+      "article": [
+        `${word.charAt(0).toUpperCase() + word.slice(1)} book is on the table.`,
+        `I saw ${word} cat in the garden.`,
+        `${word.charAt(0).toUpperCase() + word.slice(1)} apples are fresh.`
+      ]
+    };
+    
+    // Determine which example set to use based on the word type
+    let wordType = type.split('/')[0].toLowerCase();
+    if (!basicExamples[wordType as keyof typeof basicExamples]) {
+      wordType = "noun"; // Default to noun if type is not recognized
+    }
+    
+    return basicExamples[wordType as keyof typeof basicExamples];
+  };
+
+  const examples = getExampleSentences(currentCard.english, currentCard.type);
 
   return (
     <div className="max-w-4xl mx-auto p-5">
@@ -117,7 +147,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
           {languageName} Test - Lesson {lessonNumber}
         </h1>
         <p className="text-gray-600">
-          Test your knowledge of the vocabulary from this lesson.
+          Test your knowledge of the vocabulary from this lesson. Write all answers in your notebook.
         </p>
       </div>
 
@@ -128,7 +158,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
             <p className="text-gray-600">Card {currentCardIndex + 1} of {cards.length}</p>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-8 min-h-[200px] flex flex-col justify-between">
+          <div className="bg-gray-50 rounded-lg p-8 min-h-[220px] flex flex-col justify-between">
             <div className="text-center">
               <div className="text-sm text-gray-600 mb-2">{currentCard.type}</div>
               <div className="text-3xl font-bold mb-6">{currentCard.english}</div>
@@ -178,60 +208,97 @@ const TestComponent: React.FC<TestComponentProps> = ({ language, lessonNumber, s
               </button>
             </div>
           </div>
+          
+          {/* Example Sentences */}
+          <div className="mt-4 bg-white p-4 rounded-lg border border-gray-200">
+            <h3 className="font-bold mb-2">Example Sentences:</h3>
+            <ul className="space-y-2 text-gray-700">
+              {examples.map((example, index) => (
+                <li key={index}>- {example}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Answer Notepad */}
-        <div className="bg-white border-2 border-black rounded-lg p-6 shadow-md">
-          <h2 className="text-xl font-bold mb-4">Your Answers</h2>
-          <p className="mb-4 text-sm text-gray-600">
-            Type your answers here temporarily or write them in your notebook.
-          </p>
-          <textarea
-            value={notepadContent}
-            onChange={(e) => setNotepadContent(e.target.value)}
-            placeholder="Type your answers here..."
-            className="w-full h-[250px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none"
-          ></textarea>
+        {/* Answer Notepad and Test Instructions */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-white border-2 border-black rounded-lg p-6 shadow-md">
+            <h2 className="text-xl font-bold mb-4">Your Answers</h2>
+            <p className="mb-4 text-sm text-gray-600">
+              Type your answers here temporarily or write them in your notebook (recommended).
+            </p>
+            <textarea
+              value={notepadContent}
+              onChange={(e) => setNotepadContent(e.target.value)}
+              placeholder="Type your answers here..."
+              className="w-full h-[170px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none"
+            ></textarea>
+          </div>
+          
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+            <h3 className="text-xl font-bold mb-3">Test Instructions</h3>
+            <ol className="list-decimal pl-5 space-y-2">
+              <li>Look at the English word and try to recall the {languageName} translation.</li>
+              <li>Write your answer in your notebook before checking.</li>
+              <li>Try to use the word in a sentence similar to the examples.</li>
+              <li>Click "Show Answer" only after writing your response.</li>
+              <li>Review any words you missed at the end of your session.</li>
+            </ol>
+          </div>
         </div>
       </div>
 
-      {/* Test Instructions */}
-      <div className="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-6">
-        <h3 className="text-xl font-bold mb-3">Test Instructions</h3>
-        <ol className="list-decimal pl-5 space-y-2">
-          <li>Look at the English word and try to recall the {languageName} translation.</li>
-          <li>Write your answer in the notepad or in your notebook.</li>
-          <li>Click "Show Answer" to check if you were correct.</li>
-          <li>Use the arrow buttons to navigate between cards.</li>
-          <li>Use the shuffle button for randomized practice.</li>
-        </ol>
+      {/* Additional Test Types */}
+      <div className="mt-8 bg-white border-2 border-black rounded-lg p-6 shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Additional Test Exercises</h2>
+        <p className="mb-4 text-sm text-gray-600">
+          Complete these additional exercises in your notebook for more practice:
+        </p>
+        
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-bold mb-2">1. Translation Practice</h3>
+            <p className="mb-2">Translate the following sentences to {languageName}:</p>
+            <ol className="list-decimal pl-5 space-y-1">
+              <li>I went to the store yesterday.</li>
+              <li>She likes to read books in the evening.</li>
+              <li>We will visit our friends next weekend.</li>
+              <li>The children are playing in the park.</li>
+              <li>Can you help me with this exercise?</li>
+            </ol>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-bold mb-2">2. Fill in the Blanks</h3>
+            <p className="mb-2">Use words from this lesson to complete these sentences:</p>
+            <ol className="list-decimal pl-5 space-y-1">
+              <li>I _____ to go to the movies tonight.</li>
+              <li>She _____ the book on the table.</li>
+              <li>They live in a _____ house near the river.</li>
+              <li>We _____ seen that movie before.</li>
+              <li>The weather is very _____ today.</li>
+            </ol>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-bold mb-2">3. Word Association</h3>
+            <p className="mb-2">Write at least 3 related words or phrases for each of these words:</p>
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-5">
+              {cards.slice(0, 5).map((card, index) => (
+                <div key={index} className="bg-gray-50 p-2 rounded text-center">{card.english}</div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mt-10">
+      {/* Back to Lesson button */}
+      <div className="flex justify-center mt-10">
         <button 
-          onClick={() => showPage(`vocab-${language}-${lessonNumber}`)} 
-          className="bg-black text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-800 transition"
+          onClick={() => showPage(language)} 
+          className="language-btn bg-white py-3 px-6 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl"
         >
-          Vocabulary
-        </button>
-        <button 
-          onClick={() => showPage(`grammar-${language}-${lessonNumber}`)} 
-          className="bg-black text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-800 transition"
-        >
-          Grammar
-        </button>
-        <button 
-          onClick={() => showPage(`reading-${language}-${lessonNumber}`)} 
-          className="bg-black text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-800 transition"
-        >
-          Reading
-        </button>
-        <button 
-          onClick={() => showPage(`writing-${language}-${lessonNumber}`)} 
-          className="bg-black text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-800 transition"
-        >
-          Writing
+          Back to Lessons
         </button>
       </div>
     </div>
