@@ -1,0 +1,95 @@
+
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Custom Language Button Styles */
+.language-btn {
+  transition: all 0.2s ease;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+}
+
+.language-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+}
+
+.language-btn:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Card Styles */
+.flashcard {
+  border: 2px solid #000;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flashcard:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Border Styles */
+.border-dashed-black {
+  border-style: dashed;
+  border-color: #000;
+  border-width: 1px;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Navigation Button Styles */
+.nav-button {
+  transition: all 0.2s ease;
+  border: 2px solid #000;
+  background: white;
+  color: black;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+}
+
+.nav-button:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Focus styles for accessibility */
+button:focus, a:focus, input:focus, textarea:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Shuffle button for flashcards */
+.shuffle-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+.shuffle-button.active {
+  background: #e6f3ff;
+  border-color: #90cdf4;
+}

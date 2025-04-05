@@ -7,33 +7,68 @@ interface MainPageProps {
 
 const MainPage: React.FC<MainPageProps> = ({ showPage }) => {
   return (
-    <div>
+    <div className="max-w-4xl mx-auto">
       {/* Header with Logo */}
-      <header className="bg-white p-5 border-dashed-black text-center">
+      <header className="bg-white p-5 border-b border-dashed border-black text-center">
         <div className="text-4xl font-bold tracking-tighter">WORD WIDE WEB</div>
       </header>
       
       {/* Mission Section */}
-      <section className="p-10 border-dashed-black bg-white">
-        <h2 className="text-3xl mb-5 underline">For Studious Language Learners</h2>
-        <p>Grab a pen and notebook. Seriously---you'll need it</p>
+      <section className="p-8 border-b border-dashed border-black bg-white">
+        <h2 className="text-3xl mb-5 font-bold underline">For Studious Language Learners</h2>
+        <p className="text-lg">Grab a pen and notebook. Seriously—you'll need it</p>
       </section>
       
       {/* Approach Section */}
-      <section className="p-10 border-dashed-black bg-white">
-        <h2 className="text-2xl mb-5">Old Fashioned Methods With a Modern Approach</h2>
-        <p>We use etymology, memory tools, and word frequency to connect new words with words you already know. Once you finish your free course we hope you'll be able to see the Word Wide Web.</p>
+      <section className="p-8 border-b border-dashed border-black bg-white">
+        <h2 className="text-2xl mb-5 font-semibold">Old Fashioned Methods With a Modern Approach</h2>
+        <p className="text-lg leading-relaxed">
+          We use etymology, memory tools, and word frequency to connect new words with words you already know. 
+          Once you finish your free course we hope you'll be able to see the Word Wide Web.
+        </p>
       </section>
       
       {/* Language Buttons Section */}
-      <section className="p-10 border-dashed-black">
-        <div className="text-center mb-3 font-bold text-lg">Click a language to get started</div>
-        <div className="flex justify-between mt-3">
-          <a href="#nl" className="language-btn" onClick={() => showPage('nl')}>NL</a>
-          <a href="#it" className="language-btn" onClick={() => showPage('it')}>IT</a>
-          <a href="#sp" className="language-btn" onClick={() => showPage('sp')}>SP</a>
-          <a href="#de" className="language-btn" onClick={() => showPage('de')}>DE</a>
+      <section className="p-8 border-b border-dashed border-black">
+        <div className="text-center mb-5 font-bold text-xl">Choose a language to get started</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-3">
+          <button 
+            className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
+            onClick={() => showPage('nl')}
+          >
+            Dutch (NL)
+          </button>
+          <button 
+            className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
+            onClick={() => showPage('it')}
+          >
+            Italian (IT)
+          </button>
+          <button 
+            className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
+            onClick={() => showPage('sp')}
+          >
+            Spanish (SP)
+          </button>
+          <button 
+            className="language-btn bg-white py-3 px-4 border-2 border-black rounded-lg shadow-md hover:bg-gray-100 font-bold text-xl" 
+            onClick={() => showPage('de')}
+          >
+            German (DE)
+          </button>
         </div>
+      </section>
+      
+      {/* How It Works Section */}
+      <section className="p-8 border-b border-dashed border-black bg-white">
+        <h2 className="text-2xl mb-5 font-semibold">How Our Method Works</h2>
+        <ul className="list-disc pl-6 space-y-3">
+          <li className="text-lg">Learn high-frequency words first with our carefully curated vocabulary lists</li>
+          <li className="text-lg">Understand word connections through etymology and memory aids</li>
+          <li className="text-lg">Practice with structured grammar lessons and immersive reading</li>
+          <li className="text-lg">Test your knowledge with interactive exercises</li>
+          <li className="text-lg">Progress through 50 carefully structured lessons to reach B2 proficiency</li>
+        </ul>
       </section>
     </div>
   );

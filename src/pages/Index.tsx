@@ -1,34 +1,71 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MainPage from "@/components/MainPage";
 import AboutPage from "@/components/AboutPage";
 import HowItWorksPage from "@/components/HowItWorksPage";
 import ContactPage from "@/components/ContactPage";
 import LanguagePage from "@/components/LanguagePage";
-import VocabularyPage from "@/components/VocabularyPage";
+import FlashcardComponent from "@/components/FlashcardComponent";
+import GrammarComponent from "@/components/GrammarComponent";
+import ReadingComponent from "@/components/ReadingComponent";
+import WritingComponent from "@/components/WritingComponent";
+import TestComponent from "@/components/TestComponent";
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState("main");
   const [lessonNumber, setLessonNumber] = useState(1);
+  const [language, setLanguage] = useState("");
   
   // Parse the current page from URL hash or use default
-  useState(() => {
+  useEffect(() => {
     const hash = window.location.hash.substring(1);
-    if (hash) setCurrentPage(hash);
-  });
+    if (hash) {
+      setCurrentPage(hash);
+      
+      // Parse language and lesson number from hash if available
+      if (hash.startsWith("vocab-") || hash.startsWith("grammar-") || 
+          hash.startsWith("reading-") || hash.startsWith("writing-") || 
+          hash.startsWith("test-")) {
+        
+        const parts = hash.split("-");
+        if (parts.length >= 3) {
+          setLanguage(parts[1]);
+          setLessonNumber(parseInt(parts[2], 10));
+        }
+      } else if (["nl", "it", "sp", "de"].includes(hash)) {
+        setLanguage(hash);
+      }
+    }
+  }, []);
 
   // Function to show different pages
   const showPage = (pageId: string) => {
     setCurrentPage(pageId);
     window.location.hash = pageId;
     window.scrollTo(0, 0);
+    
+    // Parse language and lesson from pageId if applicable
+    if (pageId.startsWith("vocab-") || pageId.startsWith("grammar-") || 
+        pageId.startsWith("reading-") || pageId.startsWith("writing-") || 
+        pageId.startsWith("test-")) {
+      
+      const parts = pageId.split("-");
+      if (parts.length >= 3) {
+        setLanguage(parts[1]);
+        setLessonNumber(parseInt(parts[2], 10));
+      }
+    } else if (["nl", "it", "sp", "de"].includes(pageId)) {
+      setLanguage(pageId);
+    }
   };
 
   // Function to show vocabulary page
   const showVocabPage = (language: string, lesson: number) => {
     setCurrentPage(`vocab-${language}-${lesson}`);
     setLessonNumber(lesson);
+    setLanguage(language);
+    window.location.hash = `vocab-${language}-${lesson}`;
     window.scrollTo(0, 0);
   };
 
@@ -51,11 +88,47 @@ const Index = () => {
         />
       );
     } else if (currentPage.startsWith("vocab-")) {
-      const [, language, lesson] = currentPage.split("-");
+      const [, pageLang, pageLesson] = currentPage.split("-");
       return (
-        <VocabularyPage 
-          language={language}
-          lessonNumber={parseInt(lesson)}
+        <FlashcardComponent 
+          language={pageLang}
+          lessonNumber={parseInt(pageLesson)}
+          showPage={showPage}
+        />
+      );
+    } else if (currentPage.startsWith("grammar-")) {
+      const [, pageLang, pageLesson] = currentPage.split("-");
+      return (
+        <GrammarComponent 
+          language={pageLang}
+          lessonNumber={parseInt(pageLesson)}
+          showPage={showPage}
+        />
+      );
+    } else if (currentPage.startsWith("reading-")) {
+      const [, pageLang, pageLesson] = currentPage.split("-");
+      return (
+        <ReadingComponent 
+          language={pageLang}
+          lessonNumber={parseInt(pageLesson)}
+          showPage={showPage}
+        />
+      );
+    } else if (currentPage.startsWith("writing-")) {
+      const [, pageLang, pageLesson] = currentPage.split("-");
+      return (
+        <WritingComponent 
+          language={pageLang}
+          lessonNumber={parseInt(pageLesson)}
+          showPage={showPage}
+        />
+      );
+    } else if (currentPage.startsWith("test-")) {
+      const [, pageLang, pageLesson] = currentPage.split("-");
+      return (
+        <TestComponent 
+          language={pageLang}
+          lessonNumber={parseInt(pageLesson)}
           showPage={showPage}
         />
       );
@@ -65,7 +138,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Fixed Top Bar with Spider Web and Navigation */}
       <div className="fixed top-0 left-0 right-0 bg-black text-white px-5 py-3 border-b-3 border-black flex justify-center items-center z-50">
         <div 
