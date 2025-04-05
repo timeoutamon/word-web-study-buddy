@@ -81,6 +81,8 @@
       left: 20px;
       font-size: 24px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
     
     .nav-links {
@@ -241,6 +243,7 @@
       height: 256px;
       border: 3px solid black;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 24px;
@@ -253,6 +256,34 @@
       top: 8px;
       left: 8px;
       font-size: 16px;
+    }
+    
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
+    
+    .flashcard-word {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .flashcard-translation {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .flashcard-similar {
+      font-size: 16px;
+      font-style: italic;
+      position: absolute;
+      bottom: 15px;
     }
     
     .color-picker {
@@ -284,6 +315,75 @@
     
     .hidden {
       display: none;
+    }
+    
+    .card-nav-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .card-nav-button {
+      background-color: black;
+      color: white;
+      border: 2px solid black;
+      padding: 5px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .card-nav-button:hover {
+      background-color: white;
+      color: black;
+    }
+    
+    .email-icon {
+      font-size: 80px;
+      text-align: center;
+      margin: 30px 0;
+      cursor: pointer;
+      display: block;
+    }
+    
+    @media (max-width: 767px) {
+      .top-nav {
+        flex-direction: column;
+        padding: 10px;
+        height: auto;
+      }
+      
+      .home-icon {
+        position: relative;
+        left: 0;
+        margin-bottom: 10px;
+        justify-content: center;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .content {
+        padding-top: 120px;
+      }
+      
+      .lessons-container {
+        padding: 10px;
+      }
+      
+      .lesson-item {
+        flex-direction: column;
+      }
+      
+      .lesson-buttons {
+        flex-wrap: wrap;
+      }
+      
+      .lesson-btn {
+        margin-bottom: 5px;
+      }
     }
     
     @media (min-width: 768px) {
@@ -321,7 +421,9 @@
   <div class="min-h-screen" id="app">
     <!-- Top Navigation -->
     <div class="top-nav">
-      <div class="home-icon" onclick="showPage('main')">🕸️</div>
+      <div class="home-icon" onclick="showPage('main')">
+        🕸️ <span style="margin-left: 5px;">WWW</span>
+      </div>
       <div class="nav-links">
         <a href="#about" onclick="showPage('about')">About Us</a>
         <a href="#how" onclick="showPage('how')">How It Works</a>
@@ -337,12 +439,12 @@
           <div class="header-title">WORD WIDE WEB</div>
         </header>
         
-        <section class="section p-10 border-dashed-black">
-          <h2 class="text-3xl mb-5 underline">For Studious Language Learners</h2>
+        <section class="section p-10 border-dashed-black text-center">
+          <h2 class="text-3xl mb-5">For Studious Language Learners</h2>
           <p>Grab a pen and notebook. Seriously---you'll need it</p>
         </section>
         
-        <section class="section p-10 border-dashed-black">
+        <section class="section p-10 border-dashed-black text-center">
           <h2 class="text-2xl mb-5">Old Fashioned Methods With a Modern Approach</h2>
           <p>We use etymology, memory tools, and word frequency to connect new words with words you already know. Once you finish your free course we hope you'll be able to see the Word Wide Web.</p>
         </section>
@@ -364,7 +466,7 @@
           <div class="header-title">ABOUT WWW</div>
         </header>
         
-        <section class="section p-10">
+        <section class="section p-10 text-center">
           <p class="mb-4">Hi. I'm Kevan, a wannabe polyglot speaking English, Dutch, ASL, Italian & Albanian at different levels. I made this site to help language learners like myself.</p>
           <p class="mb-4">I realized nothing can replace the old-fashioned methods of using pen & paper to learn a language. The gamification of language learning helps, but etymology-based memory tools aren't being used much these days. This site cannot replace interacting with a native, and alone with this site, you will not become fluent. But if you are studious, I predict it will give you a head start.</p>
           <p class="mb-4">I'm creating a website that I wish I would have had when I first learned my second language at age 18. The site is designed to be minimalistic. We don't need bright colors or engaging visuals to learn a language or engaging visuals. All you need is your laptop/mobile device, a dedicated notebook, and a writing utensil. Good luck on your language learning adventure!</p>
@@ -383,7 +485,7 @@
           <div class="header-title">HOW IT WORKS</div>
         </header>
         
-        <section class="section p-10">
+        <section class="section p-10 text-center">
           <p class="mb-4">Paper & pen to start.</p>
           <p class="mb-4">Select the language you want to learn and pick the lesson you want to complete. We suggest starting from one and working your way up to the final lesson. Keep track of your progress in your notebook. You can learn new vocabulary, practice reading, learn grammar, practice typing, and be tested on the words you've learned for each section. Each section has 50 words that you'll be working with.</p>
           <p class="mb-4">This is designed for beginners who want to get to an intermediate level in the provided languages; from there, you'll be able to learn on your own. This is a study tool. It will take effort on your part. And it's that effort that will help you progress further. Learning languages isn't easy. It's work.</p>
@@ -402,10 +504,10 @@
           <div class="header-title">CONTACT US</div>
         </header>
         
-        <section class="section p-10">
-          <div class="text-5xl text-center my-10 cursor-pointer" onclick="window.location.href = 'mailto:kevan@gmail.com'">
+        <section class="section p-10 text-center">
+          <a href="mailto:kevanamonhudson@yahoo.com" class="email-icon">
             ✉️
-          </div>
+          </a>
           <p class="text-center mb-8">Click the email icon above to contact us</p>
           
           <div class="flex justify-center gap-5">
@@ -442,13 +544,22 @@
           <!-- Flashcard container -->
           <div class="w-full md:w-7/12 flex flex-col items-center justify-center mb-8 md:mb-0">
             <div class="flashcard">
-              <div class="card-number">Card 1/50</div>
-              <div id="flashcard-content">Vocabulary content will appear here</div>
+              <div class="card-number">Card <span id="current-card-number">1</span>/<span id="total-cards">50</span></div>
+              <div id="flashcard-content" class="card-content">
+                <div class="flashcard-word" id="flashcard-word">Loading...</div>
+                <div class="flashcard-translation" id="flashcard-translation">Loading...</div>
+                <div class="flashcard-similar" id="flashcard-similar">Similar to: </div>
+              </div>
             </div>
             
             <button class="language-btn" onclick="toggleShuffle()">
               🔀 Shuffle
             </button>
+            
+            <div class="card-nav-buttons">
+              <button class="card-nav-button" onclick="previousCard()">Back</button>
+              <button class="card-nav-button" onclick="nextCard()">Next</button>
+            </div>
           </div>
           
           <!-- Notepad container -->
@@ -519,12 +630,122 @@
     
     const LESSONS_PER_LANGUAGE = 50;
     
+    // Vocabulary data for lessons
+    const VOCABULARY = {
+      lesson1: [
+        { english: "the (article)", nl: "de/het", it: "il/la/lo", sp: "el/la", de: "der/die/das", similar: { nl: "the", it: "the", sp: "the", de: "the" } },
+        { english: "be (verb)", nl: "zijn", it: "essere", sp: "ser/estar", de: "sein", similar: { nl: "is", it: "essence", sp: "estar (stay)", de: "sein (sign)" } },
+        { english: "to (preposition)", nl: "naar/tot", it: "a/per", sp: "a/para", de: "zu/nach", similar: { nl: "to", it: "to", sp: "to", de: "to" } },
+        { english: "of (preposition)", nl: "van", it: "di", sp: "de", de: "von", similar: { nl: "from", it: "of", sp: "of", de: "from" } },
+        { english: "and (conjunction)", nl: "en", it: "e", sp: "y", de: "und", similar: { nl: "end", it: "et", sp: "e (Portuguese)", de: "end" } },
+        { english: "a (article)", nl: "een", it: "un/una", sp: "un/una", de: "ein/eine", similar: { nl: "an", it: "a", sp: "a", de: "a" } },
+        { english: "in (preposition)", nl: "in", it: "in", sp: "en", de: "in", similar: { nl: "in", it: "in", sp: "in", de: "in" } },
+        { english: "that (pronoun/conjunction)", nl: "dat", it: "che/quello", sp: "que/ese", de: "dass/jene", similar: { nl: "that", it: "that", sp: "that", de: "that" } },
+        { english: "have (verb)", nl: "hebben", it: "avere", sp: "tener/haber", de: "haben", similar: { nl: "heave", it: "have", sp: "haver (Portuguese)", de: "have" } },
+        { english: "I (pronoun)", nl: "ik", it: "io", sp: "yo", de: "ich", similar: { nl: "I", it: "I", sp: "yo (yo-yo)", de: "I" } },
+        { english: "it (pronoun)", nl: "het", it: "esso/essa", sp: "ello/lo/la", de: "es", similar: { nl: "hit", it: "it", sp: "it", de: "it" } },
+        { english: "for (preposition)", nl: "voor", it: "per", sp: "para/por", de: "für", similar: { nl: "fore", it: "per (person)", sp: "para (parallel)", de: "for" } },
+        { english: "not (adverb)", nl: "niet", it: "non", sp: "no", de: "nicht", similar: { nl: "neat", it: "none", sp: "no", de: "nicht (night)" } },
+        { english: "on (preposition)", nl: "op", it: "su", sp: "en/sobre", de: "auf", similar: { nl: "up", it: "upon", sp: "on", de: "off" } },
+        { english: "with (preposition)", nl: "met", it: "con", sp: "con", de: "mit", similar: { nl: "met", it: "con (convene)", sp: "con (con artist)", de: "mit (meet)" } },
+        { english: "he (pronoun)", nl: "hij", it: "lui/egli", sp: "él", de: "er", similar: { nl: "he", it: "he", sp: "él (ell)", de: "heir" } },
+        { english: "as (conjunction/adverb)", nl: "als/zoals", it: "come", sp: "como", de: "wie/als", similar: { nl: "as", it: "as", sp: "as", de: "as" } },
+        { english: "you (pronoun)", nl: "jij/je/u", it: "tu/Lei", sp: "tú/usted", de: "du/Sie", similar: { nl: "you", it: "you", sp: "you", de: "you" } },
+        { english: "do (verb)", nl: "doen", it: "fare", sp: "hacer", de: "tun/machen", similar: { nl: "do", it: "fare (fair)", sp: "hacer (hacksaw)", de: "do" } },
+        { english: "at (preposition)", nl: "bij/aan", it: "a/presso", sp: "a/en", de: "bei/an", similar: { nl: "at", it: "at", sp: "at", de: "at" } },
+        { english: "this (pronoun/adjective)", nl: "dit/deze", it: "questo/questa", sp: "este/esta", de: "dies/dieser", similar: { nl: "this", it: "this", sp: "this", de: "this" } },
+        { english: "but (conjunction)", nl: "maar", it: "ma", sp: "pero", de: "aber", similar: { nl: "more", it: "ma (hmm)", sp: "pero (pair-o)", de: "aber (arbor)" } },
+        { english: "his (pronoun)", nl: "zijn", it: "suo", sp: "su", de: "sein", similar: { nl: "his", it: "his", sp: "his", de: "his" } },
+        { english: "by (preposition)", nl: "door/bij", it: "da/per", sp: "por", de: "von/durch", similar: { nl: "by", it: "by", sp: "by", de: "by" } },
+        { english: "from (preposition)", nl: "van/uit", it: "da", sp: "de", de: "von/aus", similar: { nl: "from", it: "from", sp: "from", de: "from" } },
+        { english: "they (pronoun)", nl: "zij/ze", it: "loro/essi", sp: "ellos/ellas", de: "sie", similar: { nl: "they", it: "they", sp: "they", de: "they" } },
+        { english: "we (pronoun)", nl: "wij/we", it: "noi", sp: "nosotros", de: "wir", similar: { nl: "we", it: "we", sp: "we", de: "we" } },
+        { english: "say (verb)", nl: "zeggen", it: "dire", sp: "decir", de: "sagen", similar: { nl: "say", it: "say", sp: "say", de: "say" } },
+        { english: "her (pronoun)", nl: "haar", it: "lei/sua", sp: "ella/su", de: "ihr/sie", similar: { nl: "hair", it: "her", sp: "her", de: "her" } },
+        { english: "she (pronoun)", nl: "zij/ze", it: "lei/essa", sp: "ella", de: "sie", similar: { nl: "she", it: "she", sp: "she", de: "she" } },
+        { english: "or (conjunction)", nl: "of", it: "o/oppure", sp: "o/u", de: "oder", similar: { nl: "of", it: "or", sp: "or", de: "oder (odor)" } },
+        { english: "will (verb/modal)", nl: "zal/zullen", it: "volere", sp: "voluntad", de: "werden", similar: { nl: "shall", it: "volition", sp: "will", de: "will" } },
+        { english: "an (article)", nl: "een", it: "un/uno/una", sp: "un/una", de: "ein/eine", similar: { nl: "an", it: "an", sp: "an", de: "an" } },
+        { english: "my (pronoun)", nl: "mijn", it: "mio/mia", sp: "mi/mío", de: "mein", similar: { nl: "mine", it: "mine", sp: "me", de: "mine" } },
+        { english: "one (pronoun/adjective)", nl: "een", it: "uno/una", sp: "uno/una", de: "eins", similar: { nl: "one", it: "one", sp: "one", de: "one" } },
+        { english: "all (adjective/adverb)", nl: "alle/allemaal", it: "tutto/tutti", sp: "todo/todos", de: "alle/alles", similar: { nl: "all", it: "all", sp: "all", de: "all" } },
+        { english: "would (verb/modal)", nl: "zou/zouden", it: "vorrei/vorrebbe", sp: "querría", de: "würde", similar: { nl: "should", it: "would", sp: "would", de: "would" } },
+        { english: "there (adverb/pronoun)", nl: "daar/er", it: "lì/là/ci", sp: "allí/ahí", de: "da/dort", similar: { nl: "there", it: "there", sp: "there", de: "there" } },
+        { english: "their (pronoun)", nl: "hun/haar", it: "loro", sp: "su/sus", de: "ihr/ihre", similar: { nl: "their", it: "their", sp: "their", de: "their" } },
+        { english: "what (pronoun)", nl: "wat", it: "che/cosa/quale", sp: "qué", de: "was", similar: { nl: "what", it: "what", sp: "what", de: "what" } },
+        { english: "so (adverb/conjunction)", nl: "zo/dus", it: "così/quindi", sp: "así/entonces", de: "so", similar: { nl: "so", it: "so", sp: "so", de: "so" } },
+        { english: "up (preposition/adverb)", nl: "op/omhoog", it: "su/sopra", sp: "arriba", de: "auf/hoch", similar: { nl: "up", it: "up", sp: "up", de: "up" } },
+        { english: "out (preposition/adverb)", nl: "uit", it: "fuori", sp: "fuera", de: "aus", similar: { nl: "out", it: "out", sp: "out", de: "out" } },
+        { english: "if (conjunction)", nl: "als/indien", it: "se", sp: "si", de: "wenn/falls", similar: { nl: "if", it: "if", sp: "if", de: "if" } },
+        { english: "about (preposition)", nl: "over/ongeveer", it: "circa/su", sp: "sobre/acerca", de: "über/ungefähr", similar: { nl: "about", it: "about", sp: "about", de: "about" } },
+        { english: "who (pronoun)", nl: "wie", it: "chi", sp: "quién", de: "wer", similar: { nl: "who", it: "who", sp: "who", de: "who" } },
+        { english: "get (verb)", nl: "krijgen", it: "ottenere/prendere", sp: "conseguir/obtener", de: "bekommen", similar: { nl: "get", it: "get", sp: "get", de: "get" } },
+        { english: "which (pronoun/adjective)", nl: "welke/dat", it: "quale/che/cui", sp: "cuál/que", de: "welche/welcher", similar: { nl: "which", it: "which", sp: "which", de: "which" } },
+        { english: "go (verb)", nl: "gaan", it: "andare", sp: "ir", de: "gehen", similar: { nl: "go", it: "gone", sp: "go", de: "go" } },
+        { english: "me (pronoun)", nl: "mij/me", it: "mi/me", sp: "me/mí", de: "mich/mir", similar: { nl: "me", it: "me", sp: "me", de: "me" } },
+      ],
+      lesson2: [
+        { english: "make (verb)", nl: "maken", it: "fare", sp: "hacer", de: "machen", similar: { nl: "make", it: "factory", sp: "manufacture", de: "make" } },
+        { english: "can (verb/modal)", nl: "kunnen/kan", it: "potere/può", sp: "poder/puede", de: "können/kann", similar: { nl: "can", it: "potential", sp: "potential", de: "can" } },
+        { english: "like (verb/preposition)", nl: "houden van/zoals", it: "piacere/come", sp: "gustar/como", de: "mögen/wie", similar: { nl: "like", it: "like", sp: "like", de: "like" } },
+        { english: "time (noun)", nl: "tijd", it: "tempo", sp: "tiempo", de: "Zeit", similar: { nl: "tide", it: "temporal", sp: "temporary", de: "time" } },
+        { english: "no (adverb)", nl: "nee/geen", it: "no", sp: "no", de: "nein/kein", similar: { nl: "no", it: "no", sp: "no", de: "no" } },
+        { english: "just (adverb)", nl: "gewoon/net", it: "solo/appena", sp: "solo/justo", de: "nur/gerade", similar: { nl: "just", it: "just", sp: "just", de: "just" } },
+        { english: "him (pronoun)", nl: "hem", it: "lui/lo", sp: "él/le/lo", de: "ihm/ihn", similar: { nl: "him", it: "him", sp: "him", de: "him" } },
+        { english: "know (verb)", nl: "weten/kennen", it: "sapere/conoscere", sp: "saber/conocer", de: "wissen/kennen", similar: { nl: "know", it: "cognition", sp: "know", de: "know" } },
+        { english: "take (verb)", nl: "nemen", it: "prendere", sp: "tomar", de: "nehmen", similar: { nl: "take", it: "apprehend", sp: "take", de: "take" } },
+        { english: "people (noun)", nl: "mensen", it: "persone/gente", sp: "personas/gente", de: "Leute/Menschen", similar: { nl: "persons", it: "people", sp: "people", de: "people" } },
+        { english: "into (preposition)", nl: "in/naar binnen", it: "in/dentro", sp: "en/dentro de", de: "in/hinein", similar: { nl: "into", it: "into", sp: "into", de: "into" } },
+        { english: "year (noun)", nl: "jaar", it: "anno", sp: "año", de: "Jahr", similar: { nl: "year", it: "annual", sp: "annual", de: "year" } },
+        { english: "your (pronoun)", nl: "jouw/je/uw", it: "tuo/Suo", sp: "tu/su", de: "dein/Ihr", similar: { nl: "your", it: "your", sp: "your", de: "your" } },
+        { english: "good (adjective)", nl: "goed", it: "buono", sp: "bueno", de: "gut", similar: { nl: "good", it: "bonus", sp: "bueno (bonus)", de: "good" } },
+        { english: "some (adjective/pronoun)", nl: "sommige/wat", it: "alcuni/qualche", sp: "algunos/algún", de: "einige/manche", similar: { nl: "some", it: "some", sp: "some", de: "some" } },
+        { english: "could (verb/modal)", nl: "kon/konden", it: "potrebbe/potrebbero", sp: "podría/podrían", de: "könnte/könnten", similar: { nl: "could", it: "could", sp: "could", de: "could" } },
+        { english: "them (pronoun)", nl: "hen/hun/ze", it: "loro/li/le", sp: "ellos/ellas/les/los/las", de: "sie/ihnen", similar: { nl: "them", it: "them", sp: "them", de: "them" } },
+        { english: "see (verb)", nl: "zien", it: "vedere", sp: "ver", de: "sehen", similar: { nl: "see", it: "vision", sp: "visual", de: "see" } },
+        { english: "other (adjective/pronoun)", nl: "ander/andere", it: "altro/altra", sp: "otro/otra", de: "andere/anderer", similar: { nl: "other", it: "alternate", sp: "alternative", de: "other" } },
+        { english: "than (conjunction)", nl: "dan", it: "di/che", sp: "que", de: "als", similar: { nl: "than", it: "than", sp: "than", de: "than" } },
+        { english: "then (adverb)", nl: "dan/toen", it: "poi/allora", sp: "entonces/luego", de: "dann", similar: { nl: "then", it: "then", sp: "then", de: "then" } },
+        { english: "now (adverb)", nl: "nu", it: "ora/adesso", sp: "ahora", de: "jetzt/nun", similar: { nl: "now", it: "now", sp: "now", de: "now" } },
+        { english: "look (verb)", nl: "kijken", it: "guardare", sp: "mirar", de: "schauen", similar: { nl: "look", it: "look", sp: "look", de: "look" } },
+        { english: "only (adverb)", nl: "alleen/slechts", it: "solo/soltanto", sp: "solo/solamente", de: "nur", similar: { nl: "only", it: "only", sp: "only", de: "only" } },
+        { english: "come (verb)", nl: "komen", it: "venire", sp: "venir", de: "kommen", similar: { nl: "come", it: "convene", sp: "convention", de: "come" } },
+        { english: "its (pronoun)", nl: "zijn/haar", it: "suo/sua", sp: "su", de: "sein/seine/ihr", similar: { nl: "its", it: "its", sp: "its", de: "its" } },
+        { english: "over (preposition/adverb)", nl: "over", it: "sopra/oltre", sp: "sobre/encima", de: "über", similar: { nl: "over", it: "over", sp: "overpass", de: "over" } },
+        { english: "think (verb)", nl: "denken", it: "pensare", sp: "pensar", de: "denken", similar: { nl: "think", it: "pensive", sp: "pensate", de: "think" } },
+        { english: "also (adverb)", nl: "ook", it: "anche", sp: "también", de: "auch", similar: { nl: "also", it: "also", sp: "also", de: "also" } },
+        { english: "back (adverb/noun)", nl: "terug/rug", it: "indietro/schiena", sp: "atrás/espalda", de: "zurück/Rücken", similar: { nl: "back", it: "back", sp: "back", de: "back" } },
+        { english: "after (preposition)", nl: "na/achter", it: "dopo", sp: "después", de: "nach", similar: { nl: "after", it: "after", sp: "after", de: "after" } },
+        { english: "use (verb)", nl: "gebruiken", it: "usare", sp: "usar", de: "benutzen/verwenden", similar: { nl: "use", it: "use", sp: "use", de: "use" } },
+        { english: "two (adjective/noun)", nl: "twee", it: "due", sp: "dos", de: "zwei", similar: { nl: "two", it: "dual", sp: "double", de: "two" } },
+        { english: "how (adverb/conjunction)", nl: "hoe", it: "come", sp: "cómo", de: "wie", similar: { nl: "how", it: "how", sp: "how", de: "how" } },
+        { english: "our (pronoun)", nl: "ons/onze", it: "nostro/nostra", sp: "nuestro/nuestra", de: "unser/unsere", similar: { nl: "our", it: "our", sp: "our", de: "our" } },
+        { english: "work (verb/noun)", nl: "werken/werk", it: "lavorare/lavoro", sp: "trabajar/trabajo", de: "arbeiten/Arbeit", similar: { nl: "work", it: "labor", sp: "travel", de: "work" } },
+        { english: "first (adjective/adverb)", nl: "eerste/eerst", it: "primo/prima", sp: "primero/primer", de: "erste/zuerst", similar: { nl: "first", it: "prime", sp: "primary", de: "first" } },
+        { english: "well (adverb)", nl: "goed/wel", it: "bene", sp: "bien", de: "gut/wohl", similar: { nl: "well", it: "well", sp: "well", de: "well" } },
+        { english: "way (noun)", nl: "weg/manier", it: "modo/via", sp: "camino/manera", de: "Weg/Art", similar: { nl: "way", it: "way", sp: "way", de: "way" } },
+        { english: "even (adverb)", nl: "zelfs/even", it: "persino/anche", sp: "incluso/aún", de: "sogar/selbst", similar: { nl: "even", it: "even", sp: "even", de: "even" } },
+        { english: "new (adjective)", nl: "nieuw", it: "nuovo/nuova", sp: "nuevo/nueva", de: "neu", similar: { nl: "new", it: "novel", sp: "new", de: "new" } },
+        { english: "want (verb)", nl: "willen", it: "volere", sp: "querer", de: "wollen", similar: { nl: "want", it: "volition", sp: "wanting", de: "want" } },
+        { english: "because (conjunction)", nl: "omdat", it: "perché", sp: "porque", de: "weil", similar: { nl: "because", it: "because", sp: "because", de: "because" } },
+        { english: "any (adjective/pronoun)", nl: "enig/enige", it: "qualsiasi/qualunque", sp: "cualquier/alguno", de: "irgendein", similar: { nl: "any", it: "any", sp: "any", de: "any" } },
+        { english: "these (pronoun/adjective)", nl: "deze", it: "questi/queste", sp: "estos/estas", de: "diese", similar: { nl: "these", it: "these", sp: "these", de: "these" } },
+        { english: "give (verb)", nl: "geven", it: "dare", sp: "dar", de: "geben", similar: { nl: "give", it: "donate", sp: "donate", de: "give" } },
+        { english: "day (noun)", nl: "dag", it: "giorno/dì", sp: "día", de: "Tag", similar: { nl: "day", it: "diurnal", sp: "diary", de: "day" } },
+        { english: "most (adjective/adverb)", nl: "meest/meeste", it: "più/maggior", sp: "más/mayoría", de: "meiste/meist", similar: { nl: "most", it: "most", sp: "most", de: "most" } },
+        { english: "us (pronoun)", nl: "ons", it: "noi/ci", sp: "nos/nosotros", de: "uns", similar: { nl: "us", it: "us", sp: "us", de: "us" } },
+        { english: "very (adverb)", nl: "heel/zeer", it: "molto", sp: "muy", de: "sehr", similar: { nl: "very", it: "very", sp: "very", de: "very" } }
+      ]
+    };
+    
     // Current state
     let currentPage = 'main';
     let currentLanguage = '';
     let currentLesson = 1;
     let noteColor = 'black';
     let isShuffleActive = false;
+    let currentVocabularyList = [];
+    let currentCardIndex = 0;
     
     // Initialize page based on URL hash
     window.addEventListener('DOMContentLoaded', () => {
@@ -660,24 +881,40 @@
       window.scrollTo(0, 0);
     }
     
+    // Function to prepare vocabulary list
+    function prepareVocabularyList(lessonNumber) {
+      // Use the appropriate lesson data
+      const lessonKey = lessonNumber === 1 ? 'lesson1' : 'lesson2';
+      
+      // Create a copy of the vocabulary list to be able to shuffle it
+      currentVocabularyList = [...VOCABULARY[lessonKey]];
+      
+      // Update card count
+      document.getElementById('total-cards').textContent = currentVocabularyList.length;
+    }
+    
     // Function to show vocabulary page
     function showVocabPage(language, lesson) {
       currentLanguage = language;
       currentLesson = lesson;
+      currentCardIndex = 0;
       
       const languageInfo = LANGUAGES[language];
+      
+      // Prepare vocabulary list for this lesson
+      prepareVocabularyList(lesson);
       
       // Update vocabulary page with language and lesson info
       document.getElementById('vocab-header').textContent = 
         `${languageInfo.name.toUpperCase()} VOCABULARY - LESSON ${lesson}`;
       
-      document.getElementById('flashcard-content').textContent = 
-        `${languageInfo.name} vocabulary content for lesson ${lesson}`;
-      
       // Update back button to return to the correct language page
       document.getElementById('back-to-lessons').onclick = function() {
         showLanguage(language);
       };
+      
+      // Update the flashcard content
+      updateFlashcard();
       
       // Hide all pages
       document.querySelectorAll('.content > div').forEach(page => {
@@ -688,6 +925,39 @@
       document.getElementById('vocabulary-page').classList.remove('hidden');
       window.location.hash = `vocab-${language}-${lesson}`;
       window.scrollTo(0, 0);
+    }
+    
+    // Function to update the flashcard content
+    function updateFlashcard() {
+      if (currentVocabularyList.length === 0) return;
+      
+      const card = currentVocabularyList[currentCardIndex];
+      const wordElem = document.getElementById('flashcard-word');
+      const translationElem = document.getElementById('flashcard-translation');
+      const similarElem = document.getElementById('flashcard-similar');
+      const currentCardNumberElem = document.getElementById('current-card-number');
+      
+      // Update card content
+      wordElem.textContent = card.english;
+      translationElem.textContent = card[currentLanguage];
+      similarElem.textContent = `Similar to: ${card.similar[currentLanguage]}`;
+      currentCardNumberElem.textContent = currentCardIndex + 1;
+    }
+    
+    // Function to show next card
+    function nextCard() {
+      if (currentVocabularyList.length === 0) return;
+      
+      currentCardIndex = (currentCardIndex + 1) % currentVocabularyList.length;
+      updateFlashcard();
+    }
+    
+    // Function to show previous card
+    function previousCard() {
+      if (currentVocabularyList.length === 0) return;
+      
+      currentCardIndex = (currentCardIndex - 1 + currentVocabularyList.length) % currentVocabularyList.length;
+      updateFlashcard();
     }
     
     // Function to change text color in notepad
@@ -706,7 +976,18 @@
     // Function to toggle shuffle
     function toggleShuffle() {
       isShuffleActive = !isShuffleActive;
-      alert('Shuffle functionality would be implemented here');
+      
+      if (isShuffleActive) {
+        // Shuffle the vocabulary list
+        for (let i = currentVocabularyList.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [currentVocabularyList[i], currentVocabularyList[j]] = [currentVocabularyList[j], currentVocabularyList[i]];
+        }
+        
+        // Reset card index and update card
+        currentCardIndex = 0;
+        updateFlashcard();
+      }
       
       // Update button appearance
       const shuffleButton = document.querySelector('button.language-btn');
